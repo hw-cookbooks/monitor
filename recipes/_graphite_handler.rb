@@ -17,6 +17,7 @@
 # limitations under the License.
 #
 
+ip_type = node["monitor"]["use_local_ipv4"] ? "local_ipv4" : "public_ipv4"
 graphite_address = node["monitor"]["graphite_address"]
 graphite_port = node["monitor"]["graphite_port"]
 
