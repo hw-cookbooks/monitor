@@ -28,7 +28,11 @@ end
 handlers = node["monitor"]["default_handlers"] + node["monitor"]["metric_handlers"]
 handlers.each do |handler_name|
   next if handler_name == "debug"
-  include_recipe "monitor::_#{handler_name}_handler"
+  begin
+    include_recipe "monitor::_#{handler_name}_handler"
+  rescue Chef::Exceptions::RecipeNotFound
+    Chef::Log.warn "Failed to auto-include handler recipe for #{handler_name}"
+  end
 end
 
 sensu_handler "default" do
